@@ -1,5 +1,6 @@
 package hello.proxy.pureproxy.proxy;
 
+import hello.proxy.pureproxy.proxy.code.CacheProxy;
 import hello.proxy.pureproxy.proxy.code.ProxyPatternClient;
 import hello.proxy.pureproxy.proxy.code.RealSubject;
 import hello.proxy.pureproxy.proxy.code.Subject;
@@ -10,6 +11,16 @@ public class ProxyPatternTest {
     void proxyPattern() {
         Subject subject = new RealSubject();
         ProxyPatternClient client = new ProxyPatternClient(subject);
+        client.execute();
+        client.execute();
+        client.execute();
+    }
+
+    @Test
+    void cacheProxyTest() {
+        Subject subject = new RealSubject();
+        Subject cacheProxy = new CacheProxy(subject);
+        ProxyPatternClient client = new ProxyPatternClient(cacheProxy);
         client.execute();
         client.execute();
         client.execute();
